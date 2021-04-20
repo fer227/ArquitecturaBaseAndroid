@@ -1,6 +1,7 @@
 package com.app.server;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.volley.Request;
@@ -82,6 +83,7 @@ public class Formulario extends AppCompatActivity {
                         }
                 );
                 queueVolley.add(request);
+                startActivity(new Intent(Formulario.this, MainActivity.class));
             }
         });
 
