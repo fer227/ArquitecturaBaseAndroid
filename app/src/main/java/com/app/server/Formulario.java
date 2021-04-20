@@ -23,9 +23,13 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Formulario extends AppCompatActivity {
 
     String url = "";
+    //Debe terminar en /
     protected void enviarToast(String msg){
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
@@ -87,6 +91,10 @@ public class Formulario extends AppCompatActivity {
             }
         });
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         enviarRetrofit.setOnClickListener(new View.OnClickListener() {
             @Override
