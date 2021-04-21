@@ -76,7 +76,7 @@ public class Formulario extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    if(response.getString("result").equals("200")){
+                                    if(response.getString("result").equals("201")){
                                         try {
                                             enviarToast(response.getString("msg"));
                                         } catch (JSONException e) {
@@ -117,7 +117,7 @@ public class Formulario extends AppCompatActivity {
                         new Callback<Modelo>() {
                             @Override
                             public void onResponse(Call<Modelo> call, retrofit2.Response<Modelo> response) {
-                                if(response.code() == 200){
+                                if(response.code() == 201){
                                     enviarToast(response.message());
                                 }
                             }
