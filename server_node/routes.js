@@ -10,7 +10,10 @@ controller.addCancion("Formation", "Beyoncé", "3:26", "Mike Will Made It");
 
 router.get('/canciones', (ctx) => {
     ctx.status = 200;
-    ctx.body = (controller.getCanciones());
+    ctx.body = {
+        canciones: controller.getCanciones(),
+        size: controller.getSize()
+    }
 });
 
 router.post('/canciones', (ctx) => {
