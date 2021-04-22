@@ -20,6 +20,13 @@ public class Modelo {
     @Expose
     private String productores;
 
+    public Modelo(String artista, String cancion, String duracion, String productores) {
+        this.artista = artista;
+        this.cancion = cancion;
+        this.duracion = duracion;
+        this.productores = productores;
+    }
+
     public String getArtista(){
         return artista;
     }

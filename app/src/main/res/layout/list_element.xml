@@ -47,7 +47,7 @@
                 android:layout_toRightOf="@+id/iconImage">
 
                 <TextView
-                    android:id="@+id/nombre_artista"
+                    android:id="@+id/text_artista"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
@@ -57,6 +57,7 @@
                     android:textStyle="bold">
                 </TextView>
                 <TextView
+                    android:id="@+id/text_cancion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Canción"
