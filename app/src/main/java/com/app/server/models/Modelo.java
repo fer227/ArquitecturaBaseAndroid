@@ -33,7 +33,7 @@ public class Modelo {
     }
 
     public void setCancion(String c){
-        artista =c;
+        cancion =c;
     }
 
     public String getDuracion(){
@@ -41,7 +41,7 @@ public class Modelo {
     }
 
     public void setDuracion(String d){
-        artista =d;
+        duracion =d;
     }
 
     public String getProductores(){
@@ -49,6 +49,6 @@ public class Modelo {
     }
 
     public void setProductores(String p){
-        artista =p;
+        productores =p;
     }
 }
