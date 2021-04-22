@@ -31,7 +31,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Formulario extends AppCompatActivity {
-    private String url = "";
+    private String url = "http://google.es";
     //Debe terminar en /
     protected void enviarToast(String msg){
         Context context = getApplicationContext();
