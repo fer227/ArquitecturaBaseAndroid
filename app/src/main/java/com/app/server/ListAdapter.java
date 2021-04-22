@@ -37,6 +37,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(final ListAdapter.ViewHolder holder, final int position){
         holder.bindData(datos.get(position));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(datos.get(position).toString());
+            }
+        });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

@@ -58,4 +58,14 @@ public class Modelo {
     public void setProductores(String p){
         productores =p;
     }
+
+    @Override
+    public String toString() {
+        return "Modelo{" +
+                "artista='" + artista + '\'' +
+                ", cancion='" + cancion + '\'' +
+                ", duracion='" + duracion + '\'' +
+                ", productores='" + productores + '\'' +
+                '}';
+    }
 }

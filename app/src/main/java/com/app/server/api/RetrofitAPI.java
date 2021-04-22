@@ -5,6 +5,7 @@ import com.app.server.models.Modelo;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RetrofitAPI {
@@ -14,4 +15,6 @@ public interface RetrofitAPI {
                              @Field("cancion") String cancion,
                              @Field("duracion") String duracion,
                              @Field("productores") String productores);
+
+    //@GET("/canciones/{id}")
 }

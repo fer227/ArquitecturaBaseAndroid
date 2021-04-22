@@ -31,8 +31,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Formulario extends AppCompatActivity {
-    private String url = "http://google.es";
-    //Debe terminar en /
+    private String url = "http://54.175.243.98:6000/canciones/";
+
     protected void enviarToast(String msg){
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
@@ -76,16 +76,7 @@ public class Formulario extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    if(response.getString("result").equals("201")){
-                                        try {
-                                            enviarToast(response.getString("msg"));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                    else{
-                                        enviarToast("No se pudo mandar la petición");
-                                    }
+                                    enviarToast(response.getString("msg"));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -99,7 +90,8 @@ public class Formulario extends AppCompatActivity {
                         }
                 );
                 queueVolley.add(request);
-                startActivity(new Intent(Formulario.this, MainActivity.class));
+                //startActivity(new Intent(Formulario.this, MainActivity.class));
+                onBackPressed();
             }
         });
 
@@ -119,6 +111,7 @@ public class Formulario extends AppCompatActivity {
                             public void onResponse(Call<Modelo> call, retrofit2.Response<Modelo> response) {
                                 if(response.code() == 201){
                                     enviarToast(response.message());
+                                    onBackPressed();
                                 }
                             }
 
