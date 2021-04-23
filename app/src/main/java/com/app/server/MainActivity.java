@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.app.server.models.Modelo;
+import com.app.server.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
 
@@ -28,18 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private String url = "http://54.175.243.98:6000/canciones";
     FloatingActionButton fab;
     static ListAdapter listAdapter;
     List<Modelo> elementos = new ArrayList<Modelo>();
-
-    protected void enviarToast(String msg){
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = null;
-        toast = Toast.makeText(context, msg, duration);
-        toast.show();
-    }
+    Utils utils = new Utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +58,16 @@ public class MainActivity extends AppCompatActivity {
     public void lanzar_lista(){
         RequestQueue queueVolley = Volley.newRequestQueue(this);
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, utils.getUrlBase(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             elementos.clear();
+
                             System.out.println(response);
                             System.out.println("---------------------");
+
                             int size = response.getInt("size");
                             JSONObject canciones = response.getJSONObject("canciones");
                             for(int i = 0; i < size; i++){
@@ -80,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                                 elementos.add(new Modelo(cancion.getString("artista"), cancion.getString("cancion"), cancion.getString("duracion"), cancion.getString("productores")));
                             }
                             listAdapter.notifyDataSetChanged();
-                            enviarToast("Lista de canciones recibidas");
+                            utils.enviarToast("Lista de canciones recibidas", getApplicationContext());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -89,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        enviarToast("No se pudo mandar la petición 2");
+                        utils.enviarToast("Lista de canciones recibidas", getApplicationContext());
                         System.out.println(error.toString());
                     }
                 }

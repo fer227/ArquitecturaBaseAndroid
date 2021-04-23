@@ -12,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.app.server.api.RetrofitAPI;
 import com.app.server.models.Modelo;
+import com.app.server.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,15 +32,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Formulario extends AppCompatActivity {
-    private String url = "http://54.175.243.98:6000/canciones/";
-
-    protected void enviarToast(String msg){
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = null;
-        toast = Toast.makeText(context, msg, duration);
-        toast.show();
-    }
+    Utils utils = new Utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +64,12 @@ public class Formulario extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, parametros,
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, utils.getUrlBase(), parametros,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    enviarToast(response.getString("msg"));
+                                    utils.enviarToast(response.getString("msg"), getApplicationContext());
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -85,7 +78,7 @@ public class Formulario extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                enviarToast("No se pudo mandar la petición");
+                                utils.enviarToast("No se pudo mandar la petición", getApplicationContext());
                             }
                         }
                 );
@@ -96,7 +89,7 @@ public class Formulario extends AppCompatActivity {
         });
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
+                .baseUrl(utils.getUrlBase())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -110,14 +103,14 @@ public class Formulario extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Modelo> call, retrofit2.Response<Modelo> response) {
                                 if(response.code() == 201){
-                                    enviarToast(response.message());
+                                    utils.enviarToast(response.message(), getApplicationContext());
                                     onBackPressed();
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<Modelo> call, Throwable t) {
-                                enviarToast("No se pudo mandar la petición");
+                                utils.enviarToast("No se pudo mandar la petición", getApplicationContext());
                             }
                         }
                 );
