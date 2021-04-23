@@ -16,6 +16,10 @@ class Controller{
         return this.canciones;
     }
 
+    getCancion(id){
+        return this.canciones[id];
+    }
+
     getSize(){
         return this.size;
     }

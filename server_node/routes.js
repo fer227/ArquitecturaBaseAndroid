@@ -16,6 +16,11 @@ router.get('/canciones', (ctx) => {
     }
 });
 
+router.get('/canciones/:id', (ctx) => {
+    ctx.status = 200;
+    ctx.body = controller.getCancion(ctx.params.id);
+});
+
 router.post('/canciones', (ctx) => {
     body = ctx.request.body;
     ctx.status = 201;
