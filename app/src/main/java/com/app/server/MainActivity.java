@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
     static ListAdapter listAdapter;
     List<Modelo> elementos = new ArrayList<Modelo>();
-    Utils utils = new Utils();
+    //Utils utils = new Utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public void lanzar_lista(){
         RequestQueue queueVolley = Volley.newRequestQueue(this);
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, utils.getUrlBase(), null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Utils.getUrlBase(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                                 elementos.add(new Modelo(cancion.getString("artista"), cancion.getString("cancion"), cancion.getString("duracion"), cancion.getString("productores")));
                             }
                             listAdapter.notifyDataSetChanged();
-                            utils.enviarToast("Lista de canciones recibidas", getApplicationContext());
+                            Utils.enviarToast("Lista de canciones recibidas", getApplicationContext());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        utils.enviarToast("Lista de canciones recibidas", getApplicationContext());
+                        Utils.enviarToast("Lista de canciones recibidas", getApplicationContext());
                         System.out.println(error.toString());
                     }
                 }

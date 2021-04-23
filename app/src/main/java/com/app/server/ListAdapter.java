@@ -1,6 +1,7 @@
 package com.app.server;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(datos.get(position).toString());
+                //System.out.println(datos.get(position).toString());
+                Intent intent = new Intent(context, Detalle.class);
+                intent.putExtra("id", position);
+                context.startActivity(intent);
             }
         });
     }
