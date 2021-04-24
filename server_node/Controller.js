@@ -23,6 +23,10 @@ class Controller{
     getSize(){
         return this.size;
     }
+
+    deleteCancion(id){
+        delete this.canciones[id];
+    }
 }
 
 module.exports = Controller;

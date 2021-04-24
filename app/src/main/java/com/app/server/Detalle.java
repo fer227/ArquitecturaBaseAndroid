@@ -1,13 +1,19 @@
 package com.app.server;
 
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.app.server.api.RetrofitAPI;
 import com.app.server.api.RetrofitService;
 import com.app.server.models.Modelo;
 import com.app.server.utils.Utils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +33,7 @@ public class Detalle extends AppCompatActivity {
         TextView cancion = findViewById(R.id.detalle_cancion);
         TextView duracion = findViewById(R.id.detalle_productores);
         TextView productores = findViewById(R.id.detalle_productores);
+        FloatingActionButton fab = findViewById(R.id.fab_delete);
 
         RetrofitService.getInstance().getCancion(id).enqueue(new Callback<Modelo>() {
             @Override
@@ -44,6 +51,34 @@ public class Detalle extends AppCompatActivity {
             @Override
             public void onFailure(Call<Modelo> call, Throwable t) {
                 Utils.enviarToast("No se pudo recibir los datos", getApplicationContext());
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                builder.setMessage("¿Seguro que quieres eliminar esta canción del catálogo?")
+                        .setTitle("Confirmación")
+                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                RetrofitService.getInstance().deleteCancion(id).enqueue(new Callback() {
+                                    @Override
+                                    public void onResponse(Call call, Response response) {
+                                        Utils.enviarToast("Canción eliminada", Detalle.this);
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call call, Throwable t) {
+                                        Utils.enviarToast("La canción no se pudo eliminar", Detalle.this);
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("No", null);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
     }

@@ -25,4 +25,8 @@ router.post('/canciones', (ctx) => {
     ctx.body = {msg : 'Canción creada con éxito.'};
 });
 
+router.delete('/canciones/:id', (ctx) => {
+    controller.deleteCancion(ctx.params.id);
+});
+
 module.exports = router;

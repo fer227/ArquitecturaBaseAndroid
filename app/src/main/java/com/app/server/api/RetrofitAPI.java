@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -26,4 +27,8 @@ public interface RetrofitAPI {
 
     @GET("/canciones")
     Call<Map<Integer, Modelo>> getCanciones();
+
+    @DELETE("/canciones/{id}")
+    Call deleteCancion(@Path("id") int id);
+
 }
