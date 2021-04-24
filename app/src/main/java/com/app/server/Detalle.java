@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.app.server.api.RetrofitAPI;
+import com.app.server.api.RetrofitService;
 import com.app.server.models.Modelo;
 import com.app.server.utils.Utils;
 
@@ -27,14 +28,7 @@ public class Detalle extends AppCompatActivity {
         TextView duracion = findViewById(R.id.detalle_productores);
         TextView productores = findViewById(R.id.detalle_productores);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Utils.getUrlBase())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitAPI servicioAPI = retrofit.create(RetrofitAPI.class);
-
-        servicioAPI.getCancion(id).enqueue(new Callback<Modelo>() {
+        RetrofitService.getInstance().getCancion(id).enqueue(new Callback<Modelo>() {
             @Override
             public void onResponse(Call<Modelo> call, Response<Modelo> response) {
                 System.out.println(response.body());
