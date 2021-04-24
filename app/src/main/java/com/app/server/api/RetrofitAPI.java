@@ -2,6 +2,8 @@ package com.app.server.api;
 
 import com.app.server.models.Modelo;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -20,4 +22,7 @@ public interface RetrofitAPI {
 
     @GET("/canciones/{id}")
     Call<Modelo> getCancion(@Path("id") int id);
+
+    @GET("/canciones")
+    Call<List<Modelo>> getCanciones();
 }

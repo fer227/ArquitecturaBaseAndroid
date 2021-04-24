@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +57,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void lanzar_lista(){
+        getVolley();
+        //getRetrofit();
+
+        listAdapter = new ListAdapter(elementos, this);
+        RecyclerView recyclerView = findViewById(R.id.listRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(listAdapter);
+    }
+
+    public void getVolley(){
         RequestQueue queueVolley = Volley.newRequestQueue(this);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Utils.getUrlBase(), null,
@@ -68,12 +80,13 @@ public class MainActivity extends AppCompatActivity {
                             System.out.println(response);
                             System.out.println("---------------------");
 
-                            int size = response.getInt("size");
-                            JSONObject canciones = response.getJSONObject("canciones");
-                            for(int i = 0; i < size; i++){
-                                JSONObject cancion = canciones.getJSONObject(Integer.toString(i));
+                            Iterator<String> keys = response.keys();
+                            while(keys.hasNext()) {
+                                String key = keys.next();
+                                JSONObject cancion = response.getJSONObject(key);
                                 elementos.add(new Modelo(cancion.getString("artista"), cancion.getString("cancion"), cancion.getString("duracion"), cancion.getString("productores")));
                             }
+
                             listAdapter.notifyDataSetChanged();
                             Utils.enviarToast("Lista de canciones recibidas", getApplicationContext());
                         } catch (JSONException e) {
@@ -90,11 +103,9 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
         queueVolley.add(request);
+    }
 
-        listAdapter = new ListAdapter(elementos, this);
-        RecyclerView recyclerView = findViewById(R.id.listRecyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(listAdapter);
+    public void getRetrofit(){
+
     }
 }
