@@ -21,6 +21,10 @@ En este apartado explico las diferentes peticiones que hemos llevado a cabo en l
 
 ![getOne](./docs/capturas/getCancion.png)
 
+- DELETE de una canción concreta con un Diálogo.
+
+![deleteOne](./docs/capturas/deleteCancion.png)
+
 - POST de una canción (se puede elegir si enviar con Retrofit o con Volley) pinchando sobre el FAB de inicio.
 
 ![post](./docs/capturas/postCancion.png)
