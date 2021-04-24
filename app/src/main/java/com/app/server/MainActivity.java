@@ -118,7 +118,9 @@ public class MainActivity extends AppCompatActivity {
 
                 Map<Integer, Modelo> mapa = response.body();
                 for (Map.Entry<Integer, Modelo> entry : mapa.entrySet()){
-                    elementos.add(entry.getValue());
+                    Modelo  model = entry.getValue();
+                    model.setId(entry.getKey());
+                    elementos.add(model);
                 }
                 listAdapter.notifyDataSetChanged();
                 Utils.enviarToast("Lista de canciones recibidas", getApplicationContext());

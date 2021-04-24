@@ -44,7 +44,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
             public void onClick(View v) {
                 //System.out.println(datos.get(position).toString());
                 Intent intent = new Intent(context, Detalle.class);
-                intent.putExtra("id", position);
+                intent.putExtra("id", datos.get(position).getId());
                 context.startActivity(intent);
             }
         });

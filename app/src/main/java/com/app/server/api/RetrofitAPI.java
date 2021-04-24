@@ -29,6 +29,6 @@ public interface RetrofitAPI {
     Call<Map<Integer, Modelo>> getCanciones();
 
     @DELETE("/canciones/{id}")
-    Call deleteCancion(@Path("id") int id);
+    Call<Void> deleteCancion(@Path("id") int id);
 
 }

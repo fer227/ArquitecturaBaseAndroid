@@ -57,20 +57,22 @@ public class Detalle extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(Detalle.this);
                 builder.setMessage("¿Seguro que quieres eliminar esta canción del catálogo?")
                         .setTitle("Confirmación")
                         .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                RetrofitService.getInstance().deleteCancion(id).enqueue(new Callback() {
+                                RetrofitService.getInstance().deleteCancion(id).enqueue(new Callback<Void>() {
                                     @Override
-                                    public void onResponse(Call call, Response response) {
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
                                         Utils.enviarToast("Canción eliminada", Detalle.this);
+                                        MainActivity.listAdapter.notifyDataSetChanged();
+                                        Detalle.this.onBackPressed();
                                     }
 
                                     @Override
-                                    public void onFailure(Call call, Throwable t) {
+                                    public void onFailure(Call<Void> call, Throwable t) {
                                         Utils.enviarToast("La canción no se pudo eliminar", Detalle.this);
                                     }
                                 });

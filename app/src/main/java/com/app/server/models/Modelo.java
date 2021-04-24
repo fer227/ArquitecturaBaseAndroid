@@ -20,6 +20,16 @@ public class Modelo {
     @Expose
     private String productores;
 
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Modelo(String artista, String cancion, String duracion, String productores) {
         this.artista = artista;
         this.cancion = cancion;
