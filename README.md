@@ -32,3 +32,5 @@ En el código de la aplicación también puedes encontrar:
 - El patrón de RecyclerView (para la lista de canciones).
 - Envío de Toast.
 - Utilización de clases *Singleton*, por ejemplo para el servicio de Retrofit y de esta forma obtener una mejor organización del código.
+
+**Nota:** la aplicación está desarrollada para hacer las peticiones a una máquina remota donde está desplegado el servidor. Si deseas probarlo tienes que desplegar tú mismo el servidor y adaptar la *url* en la clase Utils.
