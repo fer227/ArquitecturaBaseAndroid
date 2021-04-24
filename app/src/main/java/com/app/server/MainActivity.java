@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.app.server.api.RetrofitService;
 import com.app.server.models.Modelo;
 import com.app.server.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,6 +29,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
@@ -57,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void lanzar_lista(){
-        getVolley();
-        //getRetrofit();
+        //getVolley();
+        getRetrofit();
 
         listAdapter = new ListAdapter(elementos, this);
         RecyclerView recyclerView = findViewById(R.id.listRecyclerView);
@@ -97,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Utils.enviarToast("Lista de canciones recibidas", getApplicationContext());
+                        Utils.enviarToast("Las canciones no han podido ser recibidas", getApplicationContext());
                         System.out.println(error.toString());
                     }
                 }
@@ -106,6 +111,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getRetrofit(){
+        RetrofitService.getInstance().getCanciones().enqueue(new Callback<Map<Integer, Modelo>>() {
+            @Override
+            public void onResponse(Call<Map<Integer, Modelo>> call, retrofit2.Response<Map<Integer, Modelo>> response) {
+                elementos.clear();
 
+                Map<Integer, Modelo> mapa = response.body();
+                for (Map.Entry<Integer, Modelo> entry : mapa.entrySet()){
+                    elementos.add(entry.getValue());
+                }
+                listAdapter.notifyDataSetChanged();
+                Utils.enviarToast("Lista de canciones recibidas", getApplicationContext());
+            }
+
+            @Override
+            public void onFailure(Call<Map<Integer, Modelo>> call, Throwable t) {
+                Utils.enviarToast("Las canciones no han podido ser recibidas", getApplicationContext());
+                System.out.println(t.toString());
+            }
+        });
     }
 }

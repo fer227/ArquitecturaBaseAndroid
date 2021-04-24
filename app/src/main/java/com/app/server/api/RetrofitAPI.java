@@ -3,6 +3,7 @@ package com.app.server.api;
 import com.app.server.models.Modelo;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -24,5 +25,5 @@ public interface RetrofitAPI {
     Call<Modelo> getCancion(@Path("id") int id);
 
     @GET("/canciones")
-    Call<List<Modelo>> getCanciones();
+    Call<Map<Integer, Modelo>> getCanciones();
 }
